@@ -16,7 +16,7 @@ CONFIG_NAMES = list(CONFIGS.keys())
 # ── Demand baseline (from IDC 2024 + Steam Hardware Survey) ─────────────────
 GLOBAL_WEEKLY_UNITS = 5_051_923   # IDC 262.7M / 52 weeks
 MARKET_SHARE        = 0.005       # 0.5% of global market
-FIRM_WEEKLY_UNITS   = int(GLOBAL_WEEKLY_UNITS * MARKET_SHARE)  # ~25,260
+FIRM_MONTHLY_UNITS = 109_458     # FIRM_MONTHLY_UNITS = GLOBAL_WEEKLY_UNITS * MARKET_SHARE * 4.33 weeks/month
 
 CONFIG_SPLIT = {
     "Base":   0.09,
@@ -26,7 +26,7 @@ CONFIG_SPLIT = {
 }
 
 # ── Demand generation parameters ─────────────────────────────────────────────
-PLANNING_WEEKS  = 52
+PLANNING_PERIODS = 12
 TREND_GROWTH    = 0.02          # IDC 2% annual PC market growth
 NOISE_STD       = 0.10          # 10% Gaussian noise std
 

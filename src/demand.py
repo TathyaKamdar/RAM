@@ -20,9 +20,10 @@ import sys
 
 sys.path.append(str(Path(__file__).parent))
 from config import (
-    CONFIG_NAMES, CONFIG_SPLIT, FIRM_WEEKLY_UNITS,
-    PLANNING_WEEKS, TREND_GROWTH, NOISE_STD
+    CONFIG_NAMES, CONFIG_SPLIT, FIRM_MONTHLY_UNITS,
+    PLANNING_PERIODS, TREND_GROWTH, NOISE_STD
 )
+
 
 # ── Toggle between synthetic and real data ───────────────────────────────────
 USE_REAL = False   # Flip to True once google_trends_laptop.csv is in data/raw/
@@ -81,19 +82,18 @@ def make_stand_in_seasonal() -> np.ndarray:
 def generate_demand(seasonal_index: np.ndarray) -> pd.DataFrame:
     """
     Apply baseline × trend × seasonal × noise to produce
-    weekly demand per config.
-    Returns DataFrame with columns: week, config, demand_units
+    monthly demand per config.
+    Returns DataFrame with columns: month, config, demand_units
     """
-    # YOUR CODE HERE
-    # Steps:
-    #   - For each week t in range(PLANNING_WEEKS):
-    #       growth = (1 + TREND_GROWTH) ** (t / 52)
-    #       For each config:
-    #           base    = FIRM_WEEKLY_UNITS * CONFIG_SPLIT[config]
-    #           noise   = np.random.normal(1.0, NOISE_STD)
-    #           units   = base * growth * seasonal_index[t] * noise
-    #           Append row (week=t+1, config=config, demand_units=round(units))
-    raise NotImplementedError("generate_demand() not implemented yet")
+    rows = []
+    for t in range(PLANNING_PERIODS):
+        growth = (1 + TREND_GROWTH) ** (t / 12)
+        for config in CONFIG_NAMES:
+            base = FIRM_MONTHLY_UNITS * CONFIG_SPLIT[config]
+            noise = np.random.normal(1.0, NOISE_STD)
+            units = base * growth * seasonal_index[t] * noise
+            rows.append((t + 1, config, round(units)))
+    return pd.DataFrame(rows, columns=["month", "config", "demand_units"])
 
 
 def main():
