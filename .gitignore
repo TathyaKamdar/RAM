@@ -1,0 +1,8 @@
+data/raw/
+*.csv
+venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+outputs/
