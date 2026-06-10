@@ -1,6 +1,6 @@
 # RAM — S&OP Planning Engine
 ### Tathya Kamdar | MS Industrial Engineering | Northeastern University
-### Co-op Project | Supply Chain Solutions | Jan 2027
+### Co-op Project | Supply Chain  | Jan 2027
 
 ---
 
